@@ -30,15 +30,9 @@ handleClick(i) {
   }
 
  render() {
-    const winner = calculateWinner(this.state.squares);
-    let status;
-    if (winner) {
-      status = 'Winner: ' + winner;
-      /*status = 'Winner: ' + "Anna";*/
-    } else {
-      status = 'Jetzt spielt:' + (this.state.xIsNext ? 'Anna' : 'Ecki');
-    }
 
+    const winner = calculateWinner(this.state.squares);
+    const status = getStatus(winner, this.state);
 
     return (
       <div>
@@ -84,3 +78,18 @@ function calculateWinner(squares) {
   }
   return null;
 }
+
+function getPlayersName(player) {
+  switch (player) {
+    case "x": return "Name1";
+    case "o": return "Name2";
+  }
+}
+
+function getStatus(winner, state) {
+    if (winner)
+      return 'Winner: ' + getPlayersName(winner);
+    else
+      return 'Jetzt spielt:' + getPlayersName(state.xIsNext ? 'x' : 'o');
+}
+
