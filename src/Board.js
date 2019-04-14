@@ -8,6 +8,7 @@ class Board extends React.Component {
     this.state = {
       squares: Array(9).fill(null),
       xIsNext: true,
+      playerName: "",
     };
   }
 
@@ -18,6 +19,13 @@ class Board extends React.Component {
       squares: squares,
       xIsNext: !this.state.xIsNext,
     });
+  }
+
+  handleChange(e) {
+    this.setState({playerName: e.target.value});
+    const nameState = e.target.value;
+    console.log(nameState);
+    
   }
 
   renderSquare(i) {
@@ -32,29 +40,35 @@ class Board extends React.Component {
   render() {
 
     const winner = calculateWinner(this.state.squares);
-    console.log(winner);
     const status = getStatus(winner, this.state);
 
     return (
       <div>
-      <div className="status">{status}</div>
-      <div className="board-row">
-      {this.renderSquare(0)}
-      {this.renderSquare(1)}
-      {this.renderSquare(2)}
-      </div>
-      <div className="board-row">
-      {this.renderSquare(3)}
-      {this.renderSquare(4)}
-      {this.renderSquare(5)}
-      </div>
-      <div className="board-row">
-      {this.renderSquare(6)}
-      {this.renderSquare(7)}
-      {this.renderSquare(8)}
-      </div>
-      </div>
-      );
+      <form>
+      <input placeholder="player1" value={this.state.playerName} onChange={(e) => this.handleChange(e)}></input>
+    {/*  {console.log(this.state.playerName)}*/}
+
+  {/* <input placeholder="player2" value=""></input>*/}
+  </form>
+
+  <div className="status">{status}</div>
+  <div className="board-row">
+  {this.renderSquare(0)}
+  {this.renderSquare(1)}
+  {this.renderSquare(2)}
+  </div>
+  <div className="board-row">
+  {this.renderSquare(3)}
+  {this.renderSquare(4)}
+  {this.renderSquare(5)}
+  </div>
+  <div className="board-row">
+  {this.renderSquare(6)}
+  {this.renderSquare(7)}
+  {this.renderSquare(8)}
+  </div>
+  </div>
+  );
   }
 }
 
@@ -80,7 +94,7 @@ function calculateWinner(squares) {
   return null;
 }
 
-function getPlayersName(player) {
+function getPlayersName(player, nameState) {
   switch (player) {
     case "x": return "Name1";
     case "o": return "Name2";
