@@ -9,11 +9,13 @@ import Board from './Board';
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('Board tests', () => {
+    const wrapper = shallow(<Board />);
+    
     it('renders an input component', () => {
-        expect(shallow(<Board />).find('input').length).toBe(1);
+        expect(wrapper.find('input').length).toBe(1);
     });
     
     it('should render three board rows', function() {
-        expect(shallow(<Board />).find('.board-row').length).toBe(3);
+        expect(wrapper.find('.board-row').length).toBe(3);
     });
 })
