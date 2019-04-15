@@ -22,10 +22,9 @@ class Board extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({playerName: e.target.value});
-    const nameState = e.target.value;
-    console.log(nameState);
-    
+    this.setState({
+      playerName: e.target.value,
+    });
   }
 
   renderSquare(i) {
@@ -42,33 +41,35 @@ class Board extends React.Component {
     const winner = calculateWinner(this.state.squares);
     const status = getStatus(winner, this.state);
 
+
     return (
       <div>
       <form>
-      <input placeholder="player1" value={this.state.playerName} onChange={(e) => this.handleChange(e)}></input>
-    {/*  {console.log(this.state.playerName)}*/}
+      <input placeholder="player1" value={this.state.playerName} onChange={(e) => this.handleChange(e)}/>
+      {this.state.playerName}
+      
 
-  {/* <input placeholder="player2" value=""></input>*/}
-  </form>
+    {/* <input placeholder="player2" value=""></input>*/}
+    </form>
 
-  <div className="status">{status}</div>
-  <div className="board-row">
-  {this.renderSquare(0)}
-  {this.renderSquare(1)}
-  {this.renderSquare(2)}
-  </div>
-  <div className="board-row">
-  {this.renderSquare(3)}
-  {this.renderSquare(4)}
-  {this.renderSquare(5)}
-  </div>
-  <div className="board-row">
-  {this.renderSquare(6)}
-  {this.renderSquare(7)}
-  {this.renderSquare(8)}
-  </div>
-  </div>
-  );
+    <div className="status">{status}</div>
+    <div className="board-row">
+    {this.renderSquare(0)}
+    {this.renderSquare(1)}
+    {this.renderSquare(2)}
+    </div>
+    <div className="board-row">
+    {this.renderSquare(3)}
+    {this.renderSquare(4)}
+    {this.renderSquare(5)}
+    </div>
+    <div className="board-row">
+    {this.renderSquare(6)}
+    {this.renderSquare(7)}
+    {this.renderSquare(8)}
+    </div>
+    </div>
+    );
   }
 }
 
@@ -94,16 +95,17 @@ function calculateWinner(squares) {
   return null;
 }
 
-function getPlayersName(player, nameState) {
+
+function getPlayersName(player) {
   switch (player) {
-    case "x": return "Name1";
+    case "x": return "name1";
     case "o": return "Name2";
   }
 }
 
 function getStatus(winner, state) {
   if (winner)
-    return ('Winner: ' + getPlayersName(winner));
+    return 'Winner: ' + getPlayersName(winner);
   else
     return 'Jetzt spielt:' + getPlayersName(state.xIsNext ? 'x' : 'o');
 }
