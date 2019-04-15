@@ -10,6 +10,8 @@ class Board extends React.Component {
       xIsNext: true,
       playerName: "",
     };
+    this.getPlayersName = this.getPlayersName.bind(this);
+    this.getStatus = this.getStatus.bind(this);
   }
 
   handleClick(i) {
@@ -35,11 +37,47 @@ class Board extends React.Component {
       />
       );
   }
+  
+  getPlayersName(player) {
+    const { playerName } = this.state;
+    switch (player) {
+      case "x": return playerName;
+      case "o": return "Name2";
+    }
+  }
+
+  getStatus(winner) {
+    if (winner)
+      return 'Winner: ' + this.getPlayersName(winner);
+    else
+      return 'Jetzt spielt:' + this.getPlayersName(this.state.xIsNext ? 'x' : 'o');
+  }
+
+  calculateWinner() {
+    const { squares } = this.state;
+    const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+    ];
+    for (let i = 0; i < lines.length; i++) {
+      const [a, b, c] = lines[i];
+      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+        return squares[a];
+      }
+    }
+    return null;
+  }
 
   render() {
 
-    const winner = calculateWinner(this.state.squares);
-    const status = getStatus(winner, this.state);
+    const winner = this.calculateWinner();
+    const status = this.getStatus(winner);
 
 
     return (
@@ -73,40 +111,4 @@ class Board extends React.Component {
   }
 }
 
-export default Board
-
-function calculateWinner(squares) {
-  const lines = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6],
-  ];
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
-    }
-  }
-  return null;
-}
-
-
-function getPlayersName(player) {
-  switch (player) {
-    case "x": return "name1";
-    case "o": return "Name2";
-  }
-}
-
-function getStatus(winner, state) {
-  if (winner)
-    return 'Winner: ' + getPlayersName(winner);
-  else
-    return 'Jetzt spielt:' + getPlayersName(state.xIsNext ? 'x' : 'o');
-}
-
+export default Board;
