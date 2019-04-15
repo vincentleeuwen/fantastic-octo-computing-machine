@@ -15,7 +15,7 @@ describe('Board tests', () => {
         expect(wrapper.find('input').length).toBe(1);
     });
     
-    it('should render three board rows', function() {
+    it('should render three board rows', () => {
         expect(wrapper.find('.board-row').length).toBe(3);
     });
 })
